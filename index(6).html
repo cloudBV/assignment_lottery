@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assignment Lottery</title>
+<style>
+:root{--bg:#f4f6ff;--surface:#fff;--ink:#1d2433;--muted:#5f6880;--blue:#2f6fe0;--green:#1e7e34;--line:#dbe1f3;--code:#e8edf8}
+@media (prefers-color-scheme:dark){:root{--bg:#12151f;--surface:#1b2030;--ink:#e8ebf5;--muted:#a1a9c0;--blue:#7aa7ff;--green:#5fcf80;--line:#2b3350;--code:#232a40}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+main{max-width:920px;margin:0 auto;padding:56px 22px 72px}
+h1{font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.1;margin:0 0 14px;letter-spacing:-.02em}
+h2{font-size:1.5rem;margin:56px 0 12px}
+h3{font-size:1.05rem;margin:0 0 4px}
+p{max-width:68ch;margin:0 0 14px}
+.lead{font-size:1.25rem;color:var(--muted)}
+a{color:var(--blue)}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:600;padding:11px 20px;border-radius:6px;margin:6px 10px 6px 0}
+.btn.alt{background:transparent;color:var(--blue);border:2px solid var(--blue)}
+@media (prefers-color-scheme:dark){.btn{color:#0d1220}}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:center}
+.hero img{width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px 32px}
+.features p{color:var(--muted);margin:0}
+.rule{background:var(--surface);border-left:4px solid var(--green);padding:14px 20px;border-radius:0 6px 6px 0}
+.rule p:last-child{margin:0}
+pre{background:var(--code);padding:16px 18px;border-radius:6px;overflow-x:auto;font:15px/1.5 Consolas,Menlo,monospace}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font:.92em Consolas,Menlo,monospace}
+pre code{padding:0;background:none}
+table{border-collapse:collapse;width:100%;background:var(--surface);font-size:.95rem}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--line)}
+.scroll{overflow-x:auto}
+footer{margin-top:64px;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div>
+      <h1>Assignment Lottery</h1>
+      <p class="lead">A small desktop app that randomly hands out tasks to people. Paste in two lists, press Draw, and get a fair, shareable result.</p>
+      <a class="btn" href="https://cloudbv.itch.io/assignment-lottery">Download on itch.io</a>
+      <a class="btn alt" href="#run">Run from source</a>
+    </div>
+    <img src="screenshot.png" alt="Assignment Lottery window with an assignments list, a participants list, Draw button and a results table">
+  </section>
+
+  <h2>What it does</h2>
+  <p>Assignment Lottery is a Python and Tkinter program for chores, presentation topics, secret-santa style draws, classroom roles, or any time you need to split tasks without arguing about who gets what. You type one assignment per line on the left and one participant per line on the right. The draw pairs each person with a task at random and shows the result in a table.</p>
+
+  <h2>Features</h2>
+  <div class="features">
+    <div><h3>Fair random draw</h3><p>Uses Python's <code>random</code> module. Nobody gets picked first or last on purpose.</p></div>
+    <div><h3>Save and load lists</h3><p>Store both lists as a <code>.json</code> file and reopen them later, so recurring groups are one click away.</p></div>
+    <div><h3>Export results</h3><p>Save the draw as a plain <code>.txt</code> file or a <code>.csv</code> that opens in Excel or Google Sheets.</p></div>
+    <div><h3>Resizable window</h3><p>The text boxes and window stretch to fit long lists, and the results table scrolls.</p></div>
+    <div><h3>No dependencies</h3><p>Only the Python standard library. Nothing to <code>pip install</code>.</p></div>
+    <div><h3>File dialogs, no hardcoded paths</h3><p>You choose where files are saved and loaded every time.</p></div>
+  </div>
+
+  <h2>How assignments are handed out</h2>
+  <div class="rule">
+    <p><strong>Enough tasks for everyone:</strong> each participant gets a different task, with no repeats.</p>
+    <p><strong>More participants than tasks:</strong> the tasks are shuffled and then repeat in a loop until everyone has one.</p>
+    <p>Blank lines and extra spaces are ignored. If either list is empty, the app asks you to fill it in.</p>
+  </div>
+
+  <h2 id="run">Run it</h2>
+  <p>You need Python 3 with Tkinter, which is included with the standard Windows and macOS installers. On some Linux systems install it with <code>sudo apt install python3-tk</code>.</p>
+<pre><code>git clone https://github.com/YOUR-USERNAME/assignment-lottery.git
+cd assignment-lottery
+python3 assignment_lottery.py</code></pre>
+
+  <h2>Using the app</h2>
+  <ol>
+    <li>Type your tasks in <strong>Assignments</strong> and your names in <strong>Participants</strong>, one per line.</li>
+    <li>Press <strong>Draw!</strong>. The results appear in the table below.</li>
+    <li>Press <strong>Export .txt</strong> or <strong>Export .csv</strong> to save them, or <strong>Clear Results</strong> to start over.</li>
+    <li>Use <strong>Save List</strong> and <strong>Load List</strong> to keep your lists for next time.</li>
+  </ol>
+
+  <h2>Files the app creates</h2>
+  <div class="scroll">
+  <table>
+    <tr><th>File</th><th>Made by</th><th>Contents</th></tr>
+    <tr><td><code>.json</code></td><td>Save List</td><td>Your assignments and participants, as typed</td></tr>
+    <tr><td><code>.txt</code></td><td>Export .txt</td><td>Numbered list: <code>1. Name → Task</code></td></tr>
+    <tr><td><code>.csv</code></td><td>Export .csv</td><td>Columns: #, Participant, Assignment</td></tr>
+  </table>
+  </div>
+
+  <footer>
+    <p>Made by <a href="https://cloudbv.itch.io/assignment-lottery">cloudbv</a>. Also available on itch.io.</p>
+  </footer>
+</main>
+</body>
+</html>
